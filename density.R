@@ -22,7 +22,7 @@ n <- length(Y)
 
 
 hh1 = 1.6
-hh5 = 1.9
+hh5 = 2.5
 ## Sample sample size: hh should be chosen be hand!
 ## Larger hh, flatter.
 
@@ -95,32 +95,34 @@ hist(Y,prob=T,ylim=c(0,0.15),xlab='Day',main='Histogram of S')
 #savePlot('2b',type='png')
 #savePlot('2b',type='eps')
 
-xrange = rep(NA,55)
-dens5 = rep(NA,55)
-for (k in 1:55){
-dens5[k] = f.est5(k/5-1.55)
-xrange[k] = k/5-1.55
+xrange = rep(NA,36)
+dens5 = rep(NA,36)
+for (k in 1:36){
+dens5[k] = f.est5(k/3)
+xrange[k] = k/3
 }
-dens5 = dens5/sum(dens5*0.2)
-hist(Y,prob=T,ylim=c(0,0.21),main='Histogram of serial intervals',xlab='Day')
+dens5 = dens5/sum(dens5/3)
+xrange = c(0,xrange)
+dens5 = c(0,dens5)
+hist(Y,prob=T,ylim=c(0,0.17),main='Histogram of serial intervals',xlab='Day')
 points(density(Y),type='l',lwd=2)
-points(xrange,dens5,type='l',col='red',lwd=2)
+points(spline(xrange,dens5,16),type='l',col='red',lwd=2)
 mtext('Red line: Estimated density of generation time')
 #savePlot('GenerationTime',type='png')
 #savePlot('GenerationTime',type='eps')
 
-# From Jan 20 to Jan 27, Data source: China CDC
-Hubei <- c(270, 375, 444, 549, 729, 1052, 1423, 2714)
-China <- c(291, 440, 571, 830, 1287, 1975, 2744, 4535)
-cases <- China-Hubei
-newcase <- cases[2:8]-cases[1:7]
-tvec = 1:7
+# From Jan 21 to Jan 30, Data source: China CDC
+cases <- c(65,127,281,558,923,1321,1801,2420,3125,3886)
+newcase <- cases[-1]-cases[-length(cases)]
+tvec = 1:length(newcase)
 m0 = lm(log(newcase)~1+tvec)
 r = m0$coef[2]
 se = summary(m0)$coef[2,2]
-dof = 5
-R0 = 1 / sum(exp(-r*xrange)*dens5*0.2)
-R0l = 1 / sum(exp(-(r-qt(0.975,dof)*se)*xrange)*dens5*0.2)
-R0u = 1 / sum(exp(-(r+qt(0.975,dof)*se)*xrange)*dens5*0.2)
+dof = length(newcase-2)
+R0 = 1 / sum(exp(-r*xrange)*dens5/3)
+R0l = 1 / sum(exp(-(r-qt(0.975,dof)*se)*xrange)*dens5/3)
+R0u = 1 / sum(exp(-(r+qt(0.975,dof)*se)*xrange)*dens5/3)
 R0b = 1 / sum(exp(-r*Y)/length(Y))
+
+
 

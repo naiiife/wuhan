@@ -127,11 +127,11 @@ L =rep(NA,20)
 for (pp in 1:20){
 p=(pp-1)/40
 par1 <- optim(par=c(2,0.4),Loglik,method='L-BFGS-B',p=p,
-                  lower=c(1.1,0.1),upper=c(10,2))$par
-L[pp]=-Loglik(par1,p)
+                  lower=c(1.1,0.1),upper=c(10,5))$par
+L[pp]=-2*Loglik(par1,p)
 }
-plot((0:19)/40,L,type='l',ylab='log-likelihood',
-    main='log-normal incubation',xlab=expression(pi))
-abline(h=max(L)-qchisq(0.90,1)/2,col='blue',lty=2)
+plot((0:19)/40,max(L)-L,type='l',ylab='2 log likelihood ratio',
+    main='Log-normal incubation',xlab=expression(pi),ylim=c(0,25),lwd=2)
+abline(h=qchisq(0.90,1),col='blue',lty=2)
 savePlot('Lognorm_l',type='png')
 savePlot('Lognorm_l',type='eps')

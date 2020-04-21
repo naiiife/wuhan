@@ -2,11 +2,13 @@
 The data and R codes of COVID-19.
 
 DATA
+
 "contact-tracing.csv": all contact-tracing data.
 "forwardtime.csv": the forward time (mixture) in our cohort.
 "serial.csv": the serial intervals.
 
 CODE
+
 "contacttracing.R": to obtain serial intervals using contact-tracing data.
 "incubation_Sx.R": simulation study for gamma, weibull and lognormal models respectively.
 "incubation_data.R": to estimate the incubation period distribution, using gamma, weibull and lognormal models.

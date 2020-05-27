@@ -13,7 +13,7 @@ CODE
 
 "contacttracing.R": to obtain serial intervals using contact-tracing data.
 
-"incubation_Sx.R": simulation study for gamma, weibull and lognormal models respectively.
+"incubation_Sn.R": simulation study for gamma, weibull and lognormal models respectively.
 
 "incubation_data.R": to estimate the incubation period distribution, using gamma, weibull and lognormal models.
 

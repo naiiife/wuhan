@@ -36,7 +36,7 @@ return( (num/den)^a )
 
 #### Nonparametric ####
 
-hh = 2.25
+hh = 2
 ## hh should be chosen be hand!
 ## Larger hh, flatter.
 

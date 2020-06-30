@@ -133,7 +133,7 @@ p = par1[3]
 round(b*gamma(1+1/a),2)
 round(qweibull(c(0.25,0.5,0.75,0.9,0.99),shape=a,scale=b),2)
 ########################lognormal
-par1 <- optim(par=c(2,0.4,0.8),loglik,method='L-BFGS-B',
+par1 <- optim(par=c(2,0.4,0.8),Loglik,method='L-BFGS-B',
                 lower=c(1,0.1,0),upper=c(5,1,1))$par
 -round(Loglik(par1),2)
 a = par1[1]
@@ -155,10 +155,11 @@ sum((Oi-Ei)^2/Ei)
 1-pchisq(sum((Oi-Ei)^2/Ei),13)
 #qchisq(0.95,17-3-1)
 
-seq0=seq(0.1,22,0.1)
+seq0=seq(0,22,0.1)
 hist(x+0.1,breaks=20,prob=T,ylim=c(0,0.16),
      xlab = "Time from departure to symptoms onset",
      main='log-normal incubation')
+#lines(seq0,F(seq0+0.5,a,b,p)-F(seq0-0.5,a,b,p),lwd=1.5)
 lines(seq0,p*h(seq0,a,b)+(1-p)*f(seq0,a,b),lwd=1.5)
 lines(seq0,f(seq0,a,b),col='blue',lwd=2)
 lines(seq0,h(seq0,a,b),col='red',lwd=1.5)
